@@ -1,0 +1,35 @@
+body {
+	background-color: rgb(241,241,237);
+}
+
+#container {
+	padding: 150px 33% 40px;
+	width: 500px;
+	text-align: center;
+}
+
+h1 {
+	font-variant: small-caps;
+	font-family: "Helvetica Neue";
+	font-size: 30px;
+}
+
+#tag {
+	width: 400px;
+	height: 55px;
+	position: relative;
+	text-align: left;
+	font-size: 40px;
+	margin-top: 20px;
+	font-family: "Helvetica Neue";
+}
+
+#images {
+	margin: 0 28%;
+
+}
+
+#images img {
+	display: block;
+	padding: 25px 0 25px 0;
+}
