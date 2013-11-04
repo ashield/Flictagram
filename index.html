@@ -18,13 +18,21 @@
 
 	<h1>search for images on flickr <span class="and">&amp;</span> instagram</h1>
 
-	<input type="text" id="tag" placeholder="" ></input>
+	<input type="text" id="tag" placeholder="" onblur="javascript:stripspaces(this)"></input>
 <!-- 	<div id="press-enter">press enter</div> -->
 	
-	</div>
-
+	
+<!-- 
+	<div id="description"><h3>Flictagram allows you to search across Flickr and Instagram tags at the same time. If you like an image you see here feel free to click through to see it in it's original context. Get started by entering a search term above</h3></div>-->
+	</div> 
 	<div id="images" ></div>
 
 	<div id="loading"><img src="loading.gif"></div>
+
+	<div class='paginate' data-max-tag-id='' >View More...
+
+</div>
+
+
 </body>
 </html>

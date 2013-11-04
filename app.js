@@ -6,6 +6,8 @@
       }
     });
 $('#loading').hide();
+$('.paginate').hide();
+$('#container').hide().fadeIn(2000);
 
  
 }); // End of document ready  
@@ -37,18 +39,23 @@ i=0;
 
 function submit(){
 
+$('#container').animate({'padding-top': '50px'});
+$('#tag').blur();
+$('#loading').show();
 // Remove previous search results
 
- $("#images img").remove();
+ // $("#images img").remove();
 
-validation(tag);
 
-  var tag = document.getElementById("tag").value;
+
+var tag = document.getElementById("tag").value;
 var instagramKey = "259340442.1fb234f.bde60c19506746cfbc82b20953dd222d"
 var fetchInstagram = "https://api.instagram.com/v1/tags/" + tag + "/media/recent?access_token=" + instagramKey + "&callback=?";
 
 
+function getInstagram (){
 $.ajax({
+
   dataType: "jsonp",
   url: fetchInstagram, 
   success: function(instagram) {
@@ -56,18 +63,51 @@ $.ajax({
 	var instaImg = instagram.data[i].images.standard_resolution.url;
 	var instaLink = instagram.data[i].link;
 	$("#images").append("<a href=" + instaLink + " " + "target='_blank'><img src=" + instaImg + "></a>").hide().delay('2000').fadeIn('slow');
+
 	}
+	console.log(fetchInstagram);
+	
 
+	$(".paginate").click(function(event) {
+		var nextMaxId = instagram.pagination.next_max_id
+		var getMoreInstagram = fetchInstagram + '&max_id' + '=' + nextMaxId
+		
+			
 
-$('#loading').show();
+$.ajax({
 
-$('#container').animate({'padding-top': '50px'});
-	console.log(instagram.data.length)
+  dataType: "jsonp",
+  url: getMoreInstagram, 
+  success: function(instagram) {
+	for (i=11; i < 20 ; i++) {
+	var instaImg = instagram.data[i].images.standard_resolution.url;
+	var instaLink = instagram.data[i].link;
+	$("#images").append("<a href=" + instaLink + " " + "target='_blank'><img src=" + instaImg + "></a>");
+	console.log(getMoreInstagram);
+	}
+	}
+	
+	});
+
+	});
+
+	
 	// $("#tag").val('');
+ 
+ // return function(max_id){
+ //    if(typeof max_id === 'string' && max_id.trim() !== '') {
+ //      url += "&max_id=" + max_id;
+ //    }
+ //    return url;
+
+ //  };
+
 }
 
 
 })
+}
+getInstagram ()
 
 
 var flickrKey = "f7a9edaaeec15c4bf0055f74d5105a6d"
@@ -96,15 +136,16 @@ $.ajax({
 
 });
 
-
+$('.paginate').show();
 
 }
-function validation(tag) {
-  var reg = /^\s+|\s+$/g;  // Will reject trailing and leading spaces
-  if (reg.test(tag) || tag == "") {
-  	return str.replace(/\s/g, '');  }
-}
 
+// Strip spaces on submit (hack)
+function stripspaces(input)
+{
+  input.value = input.value.replace(/\s/gi,"");
+  return true;
+}
 	
 
 

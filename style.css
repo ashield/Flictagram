@@ -31,6 +31,12 @@ h1 {
    	background-position:left;  
 	padding-left:45px;
 	background-color: inherit;
+	border: solid 1px black;
+	border-radius: 5px;
+}
+
+input:focus {
+	outline: none;
 }
 
 #images {
@@ -76,13 +82,19 @@ h1 {
 
 }
 
+.paginate {
+	text-align: center;
+	cursor: pointer;
+
+}
+
 
 /* Media Queries */
 
 @media (min-width: 860px) {
 	#images img {
 		width : 700px ;
-		margin: 25px auto 25px;
+		margin: 25px auto 50px;
 	}
 
 	#container {
