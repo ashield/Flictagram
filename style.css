@@ -1,10 +1,10 @@
 body {
-	background-color: rgb(241,241,237);
+	background-color: rgb(248, 248, 248);
 }
 
 #container {
-	padding: 150px 33% 40px;
-	width: 500px;
+	margin: auto;
+	padding: 200px 11% 40px;
 	text-align: center;
 }
 
@@ -12,24 +12,82 @@ h1 {
 	font-variant: small-caps;
 	font-family: "Helvetica Neue";
 	font-size: 30px;
+	line-height: 30px;
+}
+
+.and {
+	height: 20px;
 }
 
 #tag {
-	width: 400px;
-	height: 55px;
+	width: 100%;
 	position: relative;
 	text-align: left;
 	font-size: 40px;
 	margin-top: 20px;
 	font-family: "Helvetica Neue";
+	background-image: url(explorer.svg);
+	background-repeat:no-repeat;
+   	background-position:left;  
+	padding-left:45px;
+	background-color: inherit;
 }
 
 #images {
-	margin: 0 28%;
+	margin: auto;
+	width: 100%;
 
 }
 
 #images img {
 	display: block;
-	padding: 25px 0 25px 0;
+	margin: 25px auto 25px;
+	padding: 5px;
+	width: 78%;
+/*	border: 1px solid rgb(241,241,237);
+	background-color: rgb(241,241,237);*/
 }
+
+#loading {
+	margin: auto;
+	width: 300px;
+	height: 300px;
+
+}
+
+#loading img {
+	position: relative;
+	left: 50%;
+	right: 50%;
+	width: 20px;
+	height: 20px;
+}
+
+#press-enter {
+	position: relative;
+	float: right;
+	z-index: 100;
+	bottom: 35px;
+	right: 35px;
+/*	top: 40px;
+	right: 95px;*/
+	font-family: "Helvetica Neue";
+	font-variant: small-caps;
+
+}
+
+
+/* Media Queries */
+
+@media (min-width: 860px) {
+	#images img {
+		width : 700px ;
+		margin: 25px auto 25px;
+	}
+
+	#container {
+		width: 700px;
+		margin: auto;
+	
+	}
+}	
