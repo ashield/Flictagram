@@ -58,7 +58,7 @@ function instagram (instagram) {
 $(window).scroll(function() {
    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
        console.log("near bottom!");
-       $(window).unbind('scroll');
+       // $(window).unbind('scroll');
 
 	var nextMaxId = instagram.pagination.next_max_tag_id;
 	var getMoreInstagram = fetchInstagram + '&max_tag_id' + '=' + nextMaxId;
@@ -114,7 +114,7 @@ function flickr (flickr) {
 $(window).scroll(function() {
    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
        console.log("near bottom!");
-       $(window).unbind('scroll');
+       // $(window).unbind('scroll');
     var nextFlickrPageNumber = (flickrPageNumber + 1)
 	var getMoreFlickr = "http://api.flickr.com/services/rest/?api_key=" + flickrKey + "&format=json&jsoncallback=?&tags=" + tag + "&per_page=10&page=" + nextFlickrPageNumber + "&method=flickr.photos.search"
 
