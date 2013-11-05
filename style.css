@@ -49,7 +49,6 @@ input:focus {
 	margin: 25px auto 25px;
 	padding: 5px;
 	width: 78%;
-
 }
 
 a {
@@ -78,8 +77,6 @@ a {
 	z-index: 100;
 	bottom: 35px;
 	right: 35px;
-/*	top: 40px;
-	right: 95px;*/
 	font-family: "Helvetica Neue";
 	font-variant: small-caps;
 
@@ -101,7 +98,6 @@ max-width: 697px;
 
 
 /* Media Queries */
-
 @media (min-width: 860px) {
 	#images img {
 		width : 700px ;
