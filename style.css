@@ -21,7 +21,6 @@ h1 {
 
 #tag {
 	width: 100%;
-	position: relative;
 	text-align: left;
 	font-size: 40px;
 	margin-top: 20px;
@@ -29,7 +28,7 @@ h1 {
 	background-image: url(explorer.svg);
 	background-repeat:no-repeat;
    	background-position:left;  
-	padding-left:45px;
+	text-indent: 45px;
 	background-color: inherit;
 	border: solid 1px black;
 	border-radius: 5px;
@@ -50,8 +49,12 @@ input:focus {
 	margin: 25px auto 25px;
 	padding: 5px;
 	width: 78%;
-/*	border: 1px solid rgb(241,241,237);
-	background-color: rgb(241,241,237);*/
+
+}
+
+a {
+	margin: auto;
+	padding: 0;
 }
 
 #loading {
@@ -85,6 +88,14 @@ input:focus {
 .paginate {
 	text-align: center;
 	cursor: pointer;
+
+}
+
+.sticky-wrapper {
+
+position: fixed;
+width: 77%;
+max-width: 697px;
 
 }
 
