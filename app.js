@@ -37,11 +37,14 @@ var instagramKey = "259340442.1fb234f.bde60c19506746cfbc82b20953dd222d"
 var fetchInstagram = "https://api.instagram.com/v1/tags/" + tag + "/media/recent?access_token=" + instagramKey + "&count=10" + "&callback=?";
 
 function getInstagram (){
+working=true
 $.ajax({
   dataType: "jsonp",
   url: fetchInstagram, 
   success: instagram 
 }) // end of Ajax
+
+
 } // end of getInstagram
 
 getInstagram ()
@@ -54,18 +57,38 @@ function instagram (instagram) {
 	$("#images").append(instagramImage).hide().delay('2000').fadeIn('slow');
 
 } // end of for
+ var next = instagram.pagination.next_max_tag_id
+ console.log(next)
+ working=false
 
-$(window).scroll(function() {
-   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-       console.log("near bottom!");
-       // $(window).unbind('scroll');
+function nearBottomOfPage() {
+return $(window).scrollTop() > $(document).height() - $(window).height() - 200;
+} 
 
-	var nextMaxId = instagram.pagination.next_max_tag_id;
-	var getMoreInstagram = fetchInstagram + '&max_tag_id' + '=' + nextMaxId;
+  $(window).scroll(function() {
+  if (working) {
+      return;
+    }     
 
+ // if scroll count = 5  -- > // $(window).unbind('scroll');
+
+
+var getMoreInstagram = function() {
+var nextMaxId = next
+var moreInstagramString = fetchInstagram + '&max_tag_id=' + nextMaxId;
+
+ return moreInstagramString;
+}
+
+var newInstagramString = getMoreInstagram()
+// console.log(newInstagramString);
+
+
+if(nearBottomOfPage()) {
+  working=true;
 $.ajax({
   dataType: "jsonp",
-  url: getMoreInstagram,
+  url: newInstagramString,
   success: function (instagram) {
 	for (i=0; i < instagram.data.length ; i++) {
 	var instaImg = instagram.data[i].images.standard_resolution.url;
@@ -74,10 +97,19 @@ $.ajax({
 	$("#images").append(instagramImage).delay('2000').fadeIn('slow');
 
 } // end of for loop
+
+ next = instagram.pagination.next_max_tag_id
+ console.log(next)
+ working=false;
+
+
 } // End of second Instagram function
+
+
+
 }); // end of Ajax
-	console.log(getMoreInstagram);
-  }
+}
+  
 }); // end of window
 
 } // End of Instagram function
@@ -87,9 +119,20 @@ console.log(fetchInstagram);
 // FLICKR
 var flickrKey = "f7a9edaaeec15c4bf0055f74d5105a6d"
 var flickrPageNumber = 1
-var fetchFlickr = "http://api.flickr.com/services/rest/?api_key=" + flickrKey + "&format=json&jsoncallback=?&tags=" + tag + "&per_page=10&page=" + flickrPageNumber + "&method=flickr.photos.search"
+
+ 
+var buildFlickr = function() {
+var flickrString = "http://api.flickr.com/services/rest/?api_key=" + flickrKey + "&format=json&jsoncallback=?&tags=" + tag + "&per_page=10&page=" + flickrPageNumber + "&method=flickr.photos.search";
+
+return flickrString;
+}
+
+var fetchFlickr = buildFlickr()
+
+
 
 function getFlickr (){
+  working=true;
 $.ajax({
   dataType: "jsonp",
   url: fetchFlickr, 
@@ -110,14 +153,28 @@ function flickr (flickr) {
 }// end of for
 
 	console.log(fetchFlickr)
+working=false;
+var pageNumber=1
 
-$(window).scroll(function() {
-   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-       console.log("near bottom!");
-       // $(window).unbind('scroll');
-    var nextFlickrPageNumber = (flickrPageNumber + 1)
-	var getMoreFlickr = "http://api.flickr.com/services/rest/?api_key=" + flickrKey + "&format=json&jsoncallback=?&tags=" + tag + "&per_page=10&page=" + nextFlickrPageNumber + "&method=flickr.photos.search"
 
+function nearBottomOfPage() {
+return $(window).scrollTop() > $(document).height() - $(window).height() - 100;
+} 
+
+  $(window).scroll(function() {
+  if (working) {
+      return;
+    } 
+
+  var nextFlickrPageNumber = (flickrPageNumber + pageNumber);
+	var getMoreFlickr = "http://api.flickr.com/services/rest/?api_key=" + flickrKey + "&format=json&jsoncallback=?&tags=" + tag + "&per_page=10&page=" + nextFlickrPageNumber + "&method=flickr.photos.search";
+
+ 
+ // function that returns a string --> log
+
+
+if(nearBottomOfPage()) {
+  working=true;
 	$.ajax({
   	dataType: "jsonp",
  	url: getMoreFlickr, 
@@ -129,16 +186,18 @@ $(window).scroll(function() {
     $("#images").append(flickrImage).delay('2000').fadeIn('slow');
 
 } //end of for
-
+pageNumber++
 console.log (getMoreFlickr);
+working=false;
 } // end of second Flickr function
 }); // end of Ajax
    }
-}); // end of window
+   });
+// }); // end of window
 
 } // end of Flickr function
 
-// $('.paginate').show();
+// // $('.paginate').show();
 
 } // End of Submit function
 
