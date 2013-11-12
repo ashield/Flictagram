@@ -71,7 +71,7 @@ a {
 	height: 20px;
 }
 
-#press-enter {
+#pressenter {
 	position: relative;
 	float: right;
 	z-index: 100;
@@ -79,6 +79,9 @@ a {
 	right: 35px;
 	font-family: "Helvetica Neue";
 	font-variant: small-caps;
+	height: 30px;
+	width: 76px;
+
 
 }
 
@@ -88,13 +91,6 @@ a {
 
 }
 
-.sticky-wrapper {
-
-position: fixed;
-width: 77%;
-max-width: 697px;
-
-}
 
 
 /* Media Queries */
