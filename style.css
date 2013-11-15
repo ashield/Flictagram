@@ -1,5 +1,6 @@
 body {
 	background-color: rgb(248, 248, 248);
+	font-family: "Helvetica Neue";
 }
 
 #container {
@@ -10,7 +11,7 @@ body {
 
 h1 {
 	font-variant: small-caps;
-	font-family: "Helvetica Neue";
+	font-family: inherit;
 	font-size: 30px;
 	line-height: 30px;
 }
@@ -71,26 +72,28 @@ a {
 	height: 20px;
 }
 
-#pressenter {
+#error {
+	text-align: center;
+	margin: 50px auto 100px;
+}
+
+#prompt {
 	position: relative;
-	float: right;
 	z-index: 100;
 	bottom: 35px;
-	right: 35px;
+	right: 5px;
+	float: right;
+	height: 16px;
+	width: 76px;
+}
+
+#pressenter {
+	position: absolute;
 	font-family: "Helvetica Neue";
 	font-variant: small-caps;
-	height: 30px;
-	width: 76px;
-
+	
 
 }
-
-.paginate {
-	text-align: center;
-	cursor: pointer;
-
-}
-
 
 
 /* Media Queries */
@@ -105,4 +108,41 @@ a {
 		margin: auto;
 	
 	}
+}
+
+@media (max-width: 450px) {
+	#prompt {
+		display: none;
+	}
+}
+
+/* Validation animation */
+.animated{-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:1s;-moz-animation-duration:1s;-ms-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;}.animated.hinge{-webkit-animation-duration:1s;-moz-animation-duration:1s;-ms-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;}@-webkit-keyframes shake {
+    0%, 100% {-webkit-transform: translateX(0);}    10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}
+    20%, 40%, 60%, 80% {-webkit-transform: translateX(10px);}
+}
+
+@-moz-keyframes shake {
+    0%, 100% {-moz-transform: translateX(0);}
+    10%, 30%, 50%, 70%, 90% {-moz-transform: translateX(-10px);}
+    20%, 40%, 60%, 80% {-moz-transform: translateX(10px);}
+}
+
+@-o-keyframes shake {
+    0%, 100% {-o-transform: translateX(0);}
+    10%, 30%, 50%, 70%, 90% {-o-transform: translateX(-10px);}
+    20%, 40%, 60%, 80% {-o-transform: translateX(10px);}
+}
+
+@keyframes shake {
+    0%, 100% {transform: translateX(0);}
+    10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+    20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+
+.shake {
+    -webkit-animation-name: shake;
+    -moz-animation-name: shake;
+    -o-animation-name: shake;
+    animation-name: shake;
 }	

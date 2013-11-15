@@ -28,64 +28,109 @@ $(document).ready(function() {
 
 var next = '';
 var fetchInstagram = '';
-working = true;
+instagramLoading = true;
+flickrLoading = true;
 
 function submit(){
+
+// Remove previous search results
+ $(".pics").remove();
+ $('#error p').remove();
+
+
+// Storing user input
+tag = document.getElementById("tag").value.replace(/[_\W]+/g, ""); 
+
+if (validation()== true) {
+  $('#error').append('<p>Please enter a valid tag </p>').hide().delay('600').fadeIn('slow');
+  $('#loading').hide();
+  return
+}
+
+else {
 // Generic setup
 $('#container').animate({'padding-top':'50px'});
 $('#tag').blur();
 $('#loading').show();
 
-// Remove previous search results
- $(".pics").remove();
 
-// Storing user input
-tag = document.getElementById("tag").value;
 console.log(tag)
 getInstagram ();
 getFlickr ()
+}
 } // End of Submit function
 
+function validation(){
+  if(tag == ''){
+      console.log('Empty');
+      shake();
+      return true;
+  }
+
+}
+ 
 // INSTAGRAM
 var instagramKey = "259340442.1fb234f.bde60c19506746cfbc82b20953dd222d"
 function getInstagram (){
 var fetchInstagram = "https://api.instagram.com/v1/tags/" + tag + "/media/recent?access_token=" + instagramKey + "&count=10" + "&callback=?";
 
-working=true
+instagramLoading = true;
 $.ajax({
   dataType: "jsonp",
   url: fetchInstagram, 
-  success: instagram 
+  success: instagram,
+
   }) // end of Ajax
 
  console.log(fetchInstagram)
 } // end of getInstagram
 
 function instagram (instagram) {
+  if (instagram.data.length > 0) {
 	for (i=0; i < instagram.data.length ; i++) {
 	var instaImg = instagram.data[i].images.standard_resolution.url;
 	var instaLink = instagram.data[i].link;
 	var instagramImage = "<div class='pics'><a href=" + instaLink + " " + "target='_blank'><img src=" + instaImg + "></a></div>";
 	$("#images").append(instagramImage).hide().delay('2000').fadeIn('slow');
 } // end of for
- 
+} // end of if
+
+
+else { 
+    $('#loading').hide();
+    $("#images").hide();
+  $('#error').append('<p>Sorry, I couldn’t find anything for that tag. Try another one and see what you get back.</p>').hide().delay('600').fadeIn('slow');
+  return;
+}
+
+
  next = instagram.pagination.next_max_tag_id
  console.log(next)
- working=false
+instagramLoading = false;
 } // End of Instagram function
 
 function instagramPagination(){
+      if(typeof next == "undefined"){
+
+      $('#error').append('<p>Sorry, no more images for this tag. Try searching another tag. </p>').hide().delay('600').fadeIn('slow');
+      $('#loading').hide();
+      instagramLoading = true;
+      return;
+    }
+else {
   var fetchInstagram = "https://api.instagram.com/v1/tags/" + tag + "/media/recent?access_token=" + instagramKey + "&count=10" + "&callback=?";
   var getMoreInstagram = function() {
     var nextMaxId = next;
     var moreInstagramString = fetchInstagram + '&max_tag_id=' + nextMaxId;
     return moreInstagramString;
   }
+}
+  
 
 if(nearBottomOfPage()) {
   var newInstagramString = getMoreInstagram()
   console.log(newInstagramString); 
-  working=true;
+  instagramLoading = true;
     $.ajax({
     dataType: "jsonp",
     url: newInstagramString,
@@ -99,7 +144,7 @@ if(nearBottomOfPage()) {
 
  next = instagram.pagination.next_max_tag_id
  console.log(next)
- working=false;
+ instagramLoading = false;
     } // end of second Instagram function
   }); // end of Ajax
 } // end of nearBottomOfPage
@@ -113,8 +158,8 @@ function getFlickr (){
   var flickrString = "http://api.flickr.com/services/rest/?api_key=" + flickrKey + "&format=json&jsoncallback=?&tags=" + tag + "&per_page=10&page=" + flickrPageNumber + "&method=flickr.photos.search";
   return flickrString;
   }
-  var fetchFlickr = buildFlickr()
-  working=true;
+  var fetchFlickr = buildFlickr();
+  flickrLoading = true;
   $.ajax({
   dataType: "jsonp",
   url: fetchFlickr, 
@@ -131,7 +176,7 @@ function flickr (flickr) {
     var flickrImage = "<div class='pics'><a href=" + flickrLinks + " " + "target='_blank'><img src=" + flickrImg + "></a></div>";
     $("#images").append(flickrImage).hide().delay('2000').fadeIn('slow');
   }// end of for
-  working=false;
+  flickrLoading = false;
   pageNumber=1
 } // end of Flickr function
 
@@ -140,7 +185,7 @@ function flickrPagination(){
   var getMoreFlickr = "http://api.flickr.com/services/rest/?api_key=" + flickrKey + "&format=json&jsoncallback=?&tags=" + tag + "&per_page=10&page=" + nextFlickrPageNumber + "&method=flickr.photos.search";
 
   if(nearBottomOfPage()) {
-    working=true;
+    flickrLoading = true;
     $.ajax({
   	dataType: "jsonp",
  	  url: getMoreFlickr, 
@@ -153,7 +198,7 @@ function flickrPagination(){
     } //end of for
   pageNumber++
   console.log (getMoreFlickr);
-  working=false;
+  flickrLoading = false;
   } // end of second Flickr function
   }); // end of Ajax
 }
@@ -163,18 +208,19 @@ function nearBottomOfPage() {
   return $(window).scrollTop() > $(document).height() - $(window).height() - 200;
 } 
 $(window).scroll(function() {
-  if (working) {
+  if (instagramLoading || flickrLoading)
+   {console.debug("loading")
   return;
   }
   else instagramPagination() & flickrPagination()
 }); // end of window
 
-// Strip spaces (hack)
-function stripspaces(input){
-  input.value = input.value.replace(/\s/gi,"");
-  return true;
-};
 
+function shake(){
+    $("#tag").addClass('shake animated').delay(1000).queue(function(next){
+    $(this).removeClass('shake animated');
+    });
+  };
 
 	
 
