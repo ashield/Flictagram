@@ -3,7 +3,7 @@
 	text-align: left;
 	font-size: 40px;
 	margin-top: 20px;
-	font-family: "Helvetica Neue";
+	font-family: inherit;
 	background-image: none;
 	background-color: inherit;
 	border: solid 1px black;

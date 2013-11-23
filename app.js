@@ -34,6 +34,7 @@ function submit(){
 // Remove previous search results
   $(".pics").remove();
   $('#error p').remove();
+  $('#pressenter').hide();
 
 // Storing user input
   tag = document.getElementById("tag").value.replace(/[_\W]+/g, ""); 
@@ -41,6 +42,7 @@ function submit(){
   if (validation()=== true) {
     $('#error').append('<p>Please enter a valid tag </p>').hide().delay('600').fadeIn('slow');
     $('#loading').hide();
+    $('#pressenter').hide();
     return;
   }
 
@@ -60,7 +62,6 @@ function validation(){
       shake();
       return true;
   }
-
 }
 
 // INSTAGRAM
@@ -86,7 +87,6 @@ function instagramComplete (instagram) {
      $("#images").append(instagramImage).hide().delay('2000').fadeIn('slow');
     } // end of for
   } // end of if
-
 
   else { 
     $('#loading').hide();

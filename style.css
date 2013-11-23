@@ -5,7 +5,7 @@ body {
 
 #container {
 	margin: auto;
-	padding: 200px 11% 40px;
+	padding: 200px 9% 40px 9%;
 	text-align: center;
 	max-width: 700px;
 }
@@ -22,14 +22,15 @@ h1 {
 	text-align: left;
 	font-size: 30px;
 	margin-top: 20px;
-	font-family: "HelveticaNeue";
+	font-family: inherit;
 	background-image: url(explorer.svg);
-	background-repeat:no-repeat;
-   	background-position:left;  
+	background-repeat: no-repeat;
+   	background-position: left;  
 	text-indent: 45px;
 	background-color: inherit;
 	border: solid 1px black;
 	border-radius: 5px;
+	line-height: 46px;
 }
 
 input:focus {
@@ -77,12 +78,20 @@ input:focus {
 
 #pressenter {
 	position: absolute;
-	font-family: "Helvetica Neue";
+	font-family: inherit;
 	font-variant: small-caps;
 }
 
 /* Media Queries */
 @media (max-width: 860px) {
+	#tag {
+		width: 90%;
+	}
+
+	#prompt {
+		right: 25px;
+	}
+
 	.pics {
 		display: block;
 		width: 78%;
@@ -93,9 +102,17 @@ input:focus {
 		width: 100%;
 		margin: 10px auto 10px;
 	}
+
+	#error {
+		width: 90%;
+	}
 }
 
 @media (max-width: 450px) {
+	#container {
+		padding-top: 50px;
+	}
+
 	#prompt {
 		display: none;
 	}
