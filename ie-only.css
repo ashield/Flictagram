@@ -1,11 +1,18 @@
 #tag {
 	width: 100%;
 	text-align: left;
-	font-size: 40px;
+	font-size: 30px;
 	margin-top: 20px;
 	font-family: inherit;
 	background-image: none;
 	background-color: inherit;
 	border: solid 1px black;
 	border-radius: 5px;
+	height: 47px;
+	line-height: 46px;
+
+}
+
+#prompt {
+	width: 91px;
 }

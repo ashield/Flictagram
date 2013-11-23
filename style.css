@@ -30,6 +30,7 @@ h1 {
 	background-color: inherit;
 	border: solid 1px black;
 	border-radius: 5px;
+	height: 47px;
 	line-height: 46px;
 }
 
@@ -89,7 +90,7 @@ input:focus {
 	}
 
 	#prompt {
-		right: 25px;
+		right: 30px;
 	}
 
 	.pics {
